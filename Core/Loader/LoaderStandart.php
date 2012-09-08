@@ -62,6 +62,7 @@ class LoaderStandart extends LoaderAbstract
 		include $file;
 
 		$this->loadedClasses[$className] = class_exists($className);
+
 		return $this->loadedClasses[$className];
 	}
 
@@ -69,10 +70,12 @@ class LoaderStandart extends LoaderAbstract
 	 * Получить загруженные классы
 	 *
 	 * @param array $loadedClasses
+     * @return $this|LoaderStandart
 	 */
 	public function setLoadedClasses($loadedClasses)
 	{
 		$this->loadedClasses = $loadedClasses;
+        return $this;
 	}
 
 }

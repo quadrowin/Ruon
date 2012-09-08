@@ -43,10 +43,7 @@ abstract class LoaderAbstract
 	 * @param string $className Имя класса
 	 * @return boolean true - если класс загружен, false - в противном случае
 	 */
-	public function load($className)
-	{
-		return true;
-	}
+	abstract public function load($className);
 
 	/**
 	 * Заменяет прикрепленную к неймспейску директорию новой директорией. Если

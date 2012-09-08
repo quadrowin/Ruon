@@ -97,10 +97,11 @@ class SetterTest extends \PHPUnit_Framework_TestCase
 		$tests = array($this, array(), false);
 
 		$this->object->test(
-			$this, 
+			$this,
             $this->mock,
 			'MockProperty',
-			$tests, false
+			$tests,
+            false
 		);
 	}
 
