@@ -24,7 +24,7 @@ class InjectorStandart extends InjectorAbstract
 		$properties = $classReflection->getProperties();
 
 		foreach ($properties as $property) {
-			$serviceName = $this->getInjetionService($property);
+			$serviceName = ltrim($this->getInjetionService($property), '\\');
 			if ($serviceName) {
 				$service = $this->source->get($serviceName, $object);
 				if ($service) {
