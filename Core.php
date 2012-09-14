@@ -18,7 +18,12 @@ class Core
      */
     protected static function extractBootstrapClass($bootfile)
     {
-        preg_match('#^.*[\\/]([\\w\\d]+)[\\/]([\\w\\d]+)\\.php$#', $filename, $m);
+        $m = null;
+        preg_match(
+            '#^.*[\\/]([\\w\\d]+)[\\/]([\\w\\d]+)\\.php$#',
+            $bootfile,
+            $m
+        );
         return $m[1] . '\\' . $m[2];
     }
 
@@ -32,13 +37,16 @@ class Core
      */
     public static function init($bootfile, $bootclass = null, $run = true)
     {
+        $abstractFile = __DIR__ . '/Core/BootstrapAbstract.php';
         if (!class_exists('Ruon\Core\BootstrapAbstract')) {
-            require __DIR__ . '/Core/BootstrapAbstract.php';
+            require $abstractFile;
         }
 
-        require $bootfile;
+        if ($abstractFile !== $bootfile) {
+            require $bootfile;
+        }
 
-        $class = $bootclass ?: self::extractBootstrapClass($filename);
+        $class = $bootclass ?: self::extractBootstrapClass($bootfile);
 
         $bootstrap = new $class;
 
