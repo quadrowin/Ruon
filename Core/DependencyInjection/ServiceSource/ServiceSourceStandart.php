@@ -167,6 +167,10 @@ class ServiceSourceStandart extends ServiceSourceAbstract
 	 */
 	public function getServiceConfig($class)
 	{
+        if (!$this->configProvider) {
+            return array();
+        }
+
 		$config = $this->configProvider->get($class);
 		$service = $config->get(self::SERVICE);
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mogod\Core\Config;
+namespace Ruon\Core\Config;
 
 /**
  *

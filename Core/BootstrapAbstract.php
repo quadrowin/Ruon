@@ -2,11 +2,11 @@
 
 namespace Ruon\Core;
 
+use Ruon\Core\DependencyInjection\Injector\InjectorStandart;
+
 use Ruon\Core\DependencyInjection\ServiceSource\ServiceSourceStandart;
 
 use Ruon\Core\DependencyInjection\ServiceLocator\ServiceLocatorStandart;
-
-use Ruon\Core\Loader\LoaderAutoloadAbstract;
 
 use Ruon\Core\DependencyInjection\ServiceManager;
 
@@ -24,11 +24,17 @@ class BootstrapAbstract
 {
 
     /**
-     * @return
+     *
+     * @var ServiceManager
      */
-    public function getConfigProvider()
-    {
+    protected $serviceManager;
 
+    /**
+     * @return Application
+     */
+    public function getApplication()
+    {
+        return $this->serviceManager->get('Ruon\\Core\\Application', $this);
     }
 
     /**
@@ -47,30 +53,38 @@ class BootstrapAbstract
         require __DIR__ . '/Loader/LoaderAutoloadAbstract.php';
         require __DIR__ . '/Loader/LoaderAutoloadStandart.php';
 
-        $autoloader = new LoaderAutoloadStandart();
+        $autoloader = new LoaderAutoloadStandart;
         $autoloader
             ->setLoader($loader)
             ->register();
 
         // Менеджер сервисов
-        $serviceLocator = new ServiceLocatorStandart();
-        $serviceSource = new ServiceSourceStandart();
-        $serviceManager = new ServiceManager();
+        $serviceLocator = new ServiceLocatorStandart;
+        $serviceSource = new ServiceSourceStandart;
+        $injector = new InjectorStandart;
+        $this->serviceManager = new ServiceManager;
 
         $serviceLocator
             ->set(get_class($loader), null, $loader)
             ->set(get_class($autoloader), null, $autoloader)
             ->set(get_class($serviceLocator), null, $serviceLocator)
             ->set(get_class($serviceSource), null, $serviceSource)
-            ->set(get_class($serviceManager), null, $serviceManager);
+            ->set(
+                get_class($this->serviceManager),
+                null,
+                $this->serviceManager
+            )
+            ->set(get_class($injector), null, $injector);
 
         $serviceSource
-            ->setServiceManager($serviceManager)
-            ->setConfigProvider($this->getConfigProvider());
+            ->setInjector($injector)
+            ->setServiceManager($this->serviceManager);
 
-        $serviceManager
+        $this->serviceManager
             ->setServiceLocator($serviceLocator)
             ->setServiceSource($serviceSource);
+
+        $injector->setSource($this->serviceManager);
     }
 
 }

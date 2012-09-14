@@ -65,6 +65,7 @@ class ServiceManager
 	public function setServiceLocator($locator)
 	{
 		$this->serviceLocator = $locator;
+
 		return $this;
 	}
 
@@ -76,6 +77,7 @@ class ServiceManager
 	public function setServiceSource($source)
 	{
 		$this->serviceSource = $source;
+
 		return $this;
 	}
 
