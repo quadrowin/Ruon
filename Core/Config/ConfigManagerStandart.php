@@ -7,7 +7,6 @@ namespace Ruon\Core\Config;
  * Страндартный обработчик менеджера конфигураций
  *
  * @author morph, goorus
- *
  */
 class ConfigManagerStandart extends ConfigManagerAbstract
 {
