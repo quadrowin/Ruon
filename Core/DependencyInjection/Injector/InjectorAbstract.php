@@ -13,56 +13,44 @@ abstract class InjectorAbstract
 {
 
     /**
+     * Источник экземпляров
+     *
+     * @var \Ruon\Core\DependencyInjection\ContainerInterface
+     */
+    protected $instanceSource;
+
+    /**
      * Источник сервисов
      *
      * @var \Ruon\Core\DependencyInjection\ContainerInterface
      */
-    protected $source;
+    protected $serviceSource;
 
     /**
-     * Возвращает название инъектируемого сервиса для свойства
+     * Источники
      *
-     * @param \ReflectionProperty $property
-     * @return string
+     * @var array of string
      */
-    public function getInjetionService(\ReflectionProperty $property)
-    {
-        $docComment = $property->getDocComment();
-        $m = null;
-        $match = preg_match(
-            '#@inject\s+([a-zA-Z_0-9\\\\]*)[\s\r\n]#',
-            $docComment,
-            $m
-        );
-        if (!$match) {
-            return null;
-        }
-
-        $serviceName = trim($m[1]);
-        if (!$serviceName) {
-            $match = preg_match(
-                '#@var\s+([a-zA-Z_0-9\\\\]*)[\s\r\n]#',
-                $docComment,
-                $m
-            );
-            if (!$match) {
-                return null;
-            }
-
-            $serviceName = trim($m[1]);
-        }
-
-        return $serviceName;
-    }
+    protected $sources = array('instance', 'service');
 
     /**
-     * Возвращает источник
+     * Возвращает источник экземпляров
      *
      * @return \Ruon\Core\DependencyInjection\ContainerInterface
      */
-    public function getSource()
+    public function getInstanceSource()
     {
-        return $this->source;
+        return $this->instanceSource;
+    }
+
+    /**
+     * Возвращает источник сервисов
+     *
+     * @return \Ruon\Core\DependencyInjection\ContainerInterface
+     */
+    public function getServiceSource()
+    {
+        return $this->serviceSource;
     }
 
     /**
@@ -73,14 +61,28 @@ abstract class InjectorAbstract
     abstract public function inject($object);
 
     /**
+     * Устанавливает источник экземпляров
+     *
+     * @param \Ruon\Core\DependencyInjection\ContainerInterface $source
+     * @return $this|InjectorAbstract
+     */
+    public function setInstanceSource($source)
+    {
+        $this->instanceSource = $source;
+
+        return $this;
+    }
+
+    /**
      * Устанавливает источник сервисов для внедрения
      *
      * @param \Ruon\Core\DependencyInjection\ContainerInterface $source
      * @return $this|InjectorAbstract
      */
-    public function setSource($source)
+    public function setServiceSource($source)
     {
-        $this->source = $source;
+        $this->serviceSource = $source;
+
         return $this;
     }
 

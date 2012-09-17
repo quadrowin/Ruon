@@ -4,73 +4,65 @@ namespace Ruon\Core;
 
 /**
  *
- * Приложение
+ * Приложение для консоли
  *
- * @author Goorus
+ * @author goorus, morph
  *
  */
 class Application
 {
 
     /**
-     * @inject
-     * @var \Ruon\Core\Data\DataRepositoryArgv
+     * Фронт контроллер
+     *
+     * @var string
      */
-    protected $argv;
+    protected $frontController;
 
     /**
-     * @inject
+     * @service
      * @var \Ruon\Core\Controller\ControllerExecutor
      */
     protected $controllerExecutor;
 
     /**
-     * @inject
-     * @var \Ruon\Core\Data\DataRepositoryArray
-     */
-    protected $controllerOutput;
-
-    /**
-     * @inject
+     * @instance
      * @var \Ruon\Core\Controller\ControllerTask
      */
     protected $controllerTask;
 
     /**
-     * @inject \Ruon\Core\Data\DataTransport
-     * @var \Ruon\Core\Data\DataRepositoryAbstract
+     * Возвращает фронт контроллер
+     *
+     * @return string
      */
-    protected $input;
+    public function getFrontController()
+    {
+        return $this->frontController;
+    }
 
     /**
-     * @inject
-     * @var \Ruon\Core\Render\RenderExecutor
+     * Запуск фронт контроллера
      */
-    protected $renderExecutor;
-
-    /**
-     * @inject
-     * @var \Ruon\Core\Render\RenderTask
-     */
-    protected $renderTask;
-
     public function run()
     {
-        $this->controllerTask->setOutput($this->controllerOutput);
-
-        $this->input->appendProvider($this->argv);
-
-        $this->renderTask
-            ->setRender('Ruon\\Core\\Render\\RenderCli')
-            ->setInput($this->controllerOutput);
-
         $this->controllerTask
-            ->setController('Ruon\\Core\\Controller\\ControllerAbout')
-            ->setInput($this->input)
-            ->setRenderTask($this->renderTask);
+            ->setController($this->frontController);
 
         $this->controllerExecutor->execute($this->controllerTask);
-        $this->renderExecutor->execute($this->renderTask);
+    }
+
+    /**
+     * Устанавливает фронт контроллер
+     *
+     * @param string $class
+     * @return $this|Application
+     */
+    public function setFrontController($class)
+    {
+        $this->frontController = $class;
+
+        return $this;
     }
 
 }

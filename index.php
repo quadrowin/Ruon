@@ -1,15 +1,15 @@
 <?php
 
 /**
- * Запускающий файл консоли
+ * Запускающий файл Web-приложения
  */
 
 require __DIR__ . '/Core.php';
-$bootstrap = Ruon\Core::init(
+Ruon\Core::init(
     __DIR__ . '/Core/BootstrapAbstract.php',
     'Ruon\\Core\\BootstrapAbstract'
 );
 
 $bootstrap->getApplication()
-    ->setFrontController('Ruon\\Core\\Controller\\Front\\ControllerFrontCli')
+    ->setFrontController('Ruon\\Core\\Controller\\Front\\ControllerFrontWeb')
     ->run();

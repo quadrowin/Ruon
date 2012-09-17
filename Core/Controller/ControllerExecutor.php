@@ -13,7 +13,7 @@ class ControllerExecutor
 {
 
     /**
-     * @inject
+     * @service
      * @var \Ruon\Core\DependencyInjection\ServiceManager
      */
     protected $controllerManager;

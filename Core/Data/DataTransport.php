@@ -20,13 +20,6 @@ class DataTransport extends DataRepositoryAbstract
 	protected $providers = array();
 
 	/**
-	 * Стек начатых транзакций
-	 *
-	 * @var array
-	 */
-	protected $transactions = array();
-
-	/**
 	 * Добавляет провайдера последним в конец списка
 	 *
 	 * @param DataRepositoryAbstract $provider
@@ -47,13 +40,9 @@ class DataTransport extends DataRepositoryAbstract
 	 */
 	public function flush()
 	{
-		if ($this->transactions) {
-			end($this->transactions)->flush();
-		} else {
-			foreach ($this->providers as $provider) {
-				$provider->flush();
-			}
-		}
+        foreach ($this->providers as $provider) {
+            $provider->flush();
+        }
 
 		return $this;
 	}
@@ -71,24 +60,17 @@ class DataTransport extends DataRepositoryAbstract
 		$keys = func_get_args();
 		$results = array();
 
-		if ($this->transactions) {
-			$buffer = end($this->transactions)->getAll();
-			foreach ($keys as $key) {
-				$results[] = isset($buffer[$key]) ? $buffer[$key] : null;
-			}
-		} else {
-			foreach ($keys as $key) {
-				$data = null;
-				foreach ($this->providers as $provider) {
-					$chunk = $provider->get($key);
-					if ($chunk !== null) {
-						$data = $chunk;
-						break;
-					}
-				}
-				$results[] = $data;
-			}
-		}
+        foreach ($keys as $key) {
+            $data = null;
+            foreach ($this->providers as $provider) {
+                $chunk = $provider->get($key);
+                if ($chunk !== null) {
+                    $data = $chunk;
+                    break;
+                }
+            }
+            $results[] = $data;
+        }
 
 		return count($results) == 1 ? $results[0] : $results;
 	}
@@ -101,11 +83,7 @@ class DataTransport extends DataRepositoryAbstract
 	 */
 	public function getAll()
 	{
-		if ($this->transactions) {
-			return end($this->transactions)->getAll();
-		}
-
-		$result = array();
+        $result = array();
 		foreach ($this->providers as $provider) {
 			$result = array_merge($result, $provider->getAll());
 		}
@@ -142,13 +120,9 @@ class DataTransport extends DataRepositoryAbstract
 	 */
 	public function mset(array $data)
 	{
-		if ($this->transactions) {
-			end($this->transactions)->mset($data);
-		} else {
-			foreach ($this->providers as $provider) {
-				$provider->mset($data);
-			}
-		}
+        foreach ($this->providers as $provider) {
+            $provider->mset($data);
+        }
 
 		return $this;
 	}
@@ -188,13 +162,9 @@ class DataTransport extends DataRepositoryAbstract
 	 */
 	public function set($key, $data)
 	{
-		if ($this->transactions) {
-			end($this->transactions)->set($key, $data);
-		} else {
-			foreach ($this->providers as $provider) {
-				$provider->set($key, $data);
-			}
-		}
+        foreach ($this->providers as $provider) {
+            $provider->set($key, $data);
+        }
 
 		return $this;
 	}

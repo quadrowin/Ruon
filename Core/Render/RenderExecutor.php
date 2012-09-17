@@ -13,7 +13,7 @@ class RenderExecutor
 {
 
     /**
-     * @inject
+     * @service
      * @var \Ruon\Core\DependencyInjection\ServiceManager
      */
     protected $renderManager;

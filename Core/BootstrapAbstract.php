@@ -84,7 +84,9 @@ class BootstrapAbstract
             ->setServiceLocator($serviceLocator)
             ->setServiceSource($serviceSource);
 
-        $injector->setSource($this->serviceManager);
+        $injector
+            ->setInstanceSource($serviceSource)
+            ->setServiceSource($this->serviceManager);
     }
 
 }

@@ -30,105 +30,27 @@ class InjectorAbstractTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-        
+
     }
 
     /**
-     * @covers Ruon\Core\DependencyInjection\Injector\InjectorAbstract::getInjetionService
+     * @covers Ruon\Core\DependencyInjection\Injector\InjectorAbstract::getInstanceSource
+     * @covers Ruon\Core\DependencyInjection\Injector\InjectorAbstract::setInstanceSource
      */
-    public function testGetInjetionService_Empty()
-    {
-        $property = $this->getMock(
-            'ReflectionProperty', 
-            array('getDocComment'),
-            array(),
-            '',
-            false
-        );
-        $property
-            ->expects($this->once())
-            ->method('getDocComment')
-            ->will($this->returnValue("/**\n * @desc none \n */"));
-        
-        $class = $this->stub->getInjetionService($property);
-        
-        $this->assertNull($class);
-    }
-    
-    /**
-     * @covers Ruon\Core\DependencyInjection\Injector\InjectorAbstract::getInjetionService
-     */
-    public function testGetInjetionService_Inject()
-    {
-        $property = $this->getMock(
-            'ReflectionProperty', 
-            array('getDocComment'),
-            array(),
-            '',
-            false
-        );
-        $property
-            ->expects($this->once())
-            ->method('getDocComment')
-            ->will($this->returnValue("/**\n * @inject InjectClass\n */"));
-        
-        $class = $this->stub->getInjetionService($property);
-        
-        $this->assertEquals($class, 'InjectClass');
-    }
-    
-    /**
-     * @covers Ruon\Core\DependencyInjection\Injector\InjectorAbstract::getInjetionService
-     */
-    public function testGetInjetionService_InjectEmpty()
-    {
-        $property = $this->getMock(
-            'ReflectionProperty', 
-            array('getDocComment'),
-            array(),
-            '',
-            false
-        );
-        $property
-            ->expects($this->once())
-            ->method('getDocComment')
-            ->will($this->returnValue("/**\n * @inject \n */"));
-        
-        $class = $this->stub->getInjetionService($property);
-        
-        $this->assertNull($class);
-    }
-    
-    /**
-     * @covers Ruon\Core\DependencyInjection\Injector\InjectorAbstract::getInjetionService
-     */
-    public function testGetInjetionService_Var()
-    {
-        $property = $this->getMock(
-            'ReflectionProperty', 
-            array('getDocComment'),
-            array(),
-            '',
-            false
-        );
-        $property
-            ->expects($this->once())
-            ->method('getDocComment')
-            ->will($this->returnValue("/**\n * @inject\n @var VarClass\n */"));
-        
-        $class = $this->stub->getInjetionService($property);
-        
-        $this->assertEquals($class, 'VarClass');
-    }
-
-    /**
-     * @covers Ruon\Core\DependencyInjection\Injector\InjectorAbstract::getSource
-     * @covers Ruon\Core\DependencyInjection\Injector\InjectorAbstract::setSource
-     */
-    public function testSetSource()
+    public function testSetInstanceSource()
     {
         $tester = new \Ruon\Lib\Test\Setter();
-        $tester->test($this, $this->stub, 'Source');
+        $tester->test($this, $this->stub, 'InstanceSource');
+    }
+
+    /**
+     * @covers Ruon\Core\DependencyInjection\Injector\InjectorAbstract::getServiceSource
+     * @covers Ruon\Core\DependencyInjection\Injector\InjectorAbstract::setServiceSource
+     */
+    public function testSetServiceSource()
+    {
+        $tester = new \Ruon\Lib\Test\Setter();
+        $tester->test($this, $this->stub, 'ServiceSource');
     }
 
 }

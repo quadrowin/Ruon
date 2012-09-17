@@ -64,19 +64,6 @@ class DataTransportTest extends \PHPUnit_Framework_TestCase
 
 		$this->object->appendProvider($mockProvider);
 		$this->object->flush();
-
-		// transaction
-		$this->object->beginTransaction();
-
-		$this->object->set('aaaa', 'bbb');
-
-		$this->object->flush();
-
-		$this->assertEmpty($this->object->getAll());
-
-		$this->object->endTransaction();
-
-		$this->object->removeProviders();
 	}
 
 	/**
@@ -112,15 +99,8 @@ class DataTransportTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals('value1', $this->object->get('key1'));
 		$this->assertEquals(null, $this->object->get('key2'));
 
-		// transaction
-		$this->object->beginTransaction();
 		$this->object->set('key2', 'asdf');
-		$this->assertEquals('asdf', $this->object->get('key2'));
-		$this->object->endTransaction();
-
 		$this->assertEquals('null', $this->object->get('key2'));
-
-		$this->object->removeProviders();
 	}
 
 	/**
@@ -139,14 +119,6 @@ class DataTransportTest extends \PHPUnit_Framework_TestCase
 		$this->object->appendProvider($mockProvider);
 
 		$this->assertSame(array('a' => 'b'), $this->object->getAll());
-
-		// transaction
-		$this->object->beginTransaction();
-
-		$this->object->set('b', 1);
-		$this->assertSame(array('b' => 1), $this->object->getAll());
-
-		$this->object->endTransaction();
 
 		$this->object->removeProviders();
 	}
@@ -182,17 +154,6 @@ class DataTransportTest extends \PHPUnit_Framework_TestCase
 			$this->object,
 			$this->object->mset(array('key1' => 'value1'))
 		);
-
-		$this->object->beginTransaction();
-
-		$this->assertSame(
-			$this->object,
-			$this->object->mset(array('key2' => 'value2'))
-		);
-
-		$this->object->endTransaction();
-
-		$this->object->removeProviders();
 	}
 
 	/**
@@ -225,14 +186,6 @@ class DataTransportTest extends \PHPUnit_Framework_TestCase
 		$this->object->appendProvider($mockProvider);
 
 		$this->assertSame($this->object, $this->object->set('key', 'value'));
-
-		$this->object->beginTransaction();
-
-		$this->assertSame($this->object, $this->object->set('key1', 'value1'));
-
-		$this->object->endTransaction();
-
-		$this->object->removeProviders();
 	}
 
 }
