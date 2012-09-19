@@ -30,8 +30,8 @@ class AnnotationSetTest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @covers Ruon\Core\Annotation\AnnotationSet::__construct
-	 * @covers Ruon\Core\Annotation\AnnotationSet::__get
-	 * @covers Ruon\Core\Annotation\AnnotationSet::__set
+	 * @covers Ruon\Core\Annotation\AnnotationSet::get
+	 * @covers Ruon\Core\Annotation\AnnotationSet::set
 	 */
 	public function testGetSet ()
 	{
@@ -44,12 +44,12 @@ class AnnotationSetTest extends \PHPUnit_Framework_TestCase
 			->expects($this->once())
 			->method('set')
 			->with($this->equalTo('key'), $this->equalTo('value'));
-		$set->key = 'value';
+		$set->set('key', 'value');
 		$mock
 			->expects($this->once())
 			->method('get')
 			->with($this->equalTo('key'));
-		$a = $set->key;
+		$a = $set->get('key');
 		unset($a);
 	}
 

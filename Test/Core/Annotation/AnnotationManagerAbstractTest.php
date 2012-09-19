@@ -64,7 +64,6 @@ class AnnotationManagerAbstractTest extends \PHPUnit_Framework_TestCase
 	public function testGetAnnotation()
 	{
 		$mockRepository = $this->object->getRepository();
-		$mockSource = $this->object->getSource();
 		$class = $this->getMock('\\StdClass');
 		$mockRepository
 			->expects($this->at(0))

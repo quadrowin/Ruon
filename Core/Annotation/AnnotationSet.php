@@ -49,7 +49,7 @@ class AnnotationSet
 	 *
 	 * @return Roun\Core\Annotation\AnnotationRow
 	 */
-	public function __get($name)
+	public function get($name)
 	{
 		return $this->classAnnotation->get($name);
 	}
@@ -59,7 +59,7 @@ class AnnotationSet
 	 *
 	 * @param Ruon\Core\Annotation\AnnotationRow $annotation
 	 */
-	public function __set($name, $value)
+	public function set($name, $value)
 	{
 		$this->classAnnotation->set($name, $value);
 	}
