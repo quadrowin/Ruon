@@ -141,7 +141,7 @@ class PdoPartTranslatorWhere extends PdoPartTranslatorAbstract
         $translated->appendSql(' WHERE ');
 
         foreach ($wheres as $i => $where) {
-            /* @var $where Mogod\Core\Query\QueryWhere */
+            /* @var $where \Ruon\Query\QueryWhere */
             if ($i > 0) {
                 $translated->appendSql(' AND ');
             }

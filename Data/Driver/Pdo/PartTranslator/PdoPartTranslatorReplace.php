@@ -15,8 +15,8 @@ class PdoPartTranslatorReplace extends PdoPartTranslatorAbstract
     const SQL_REPLACE = 'REPLACE';
 
     /**
-     * @inject
-     * @var Mogod\Core\Model\Scheme\ModelScheme
+     * @service
+     * @var \Ruon\Entity\EntityScheme
      */
     protected $modelScheme;
 
