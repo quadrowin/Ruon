@@ -13,17 +13,23 @@ class EntityManager
 {
 
     /**
+     *
+     * @service
+     * @var \Ruon\Entity\EntityScheme
+     */
+    protected $entityScheme;
+
+    /**
      * @service
      * @var \Ruon\Data\DataRepositoryAbstract
      */
-    protected $dataRepository;
+    protected $repository;
 
     /**
      *
-     * @service
-     * @var \Ruon\Entity\Scheme\EntitySchemeAbstract
+     * @var \Ruon\Data\Source\DataSource
      */
-    protected $entityScheme;
+    protected $source;
 
     /**
      * Возвращает первичный ключ модели
@@ -54,7 +60,7 @@ class EntityManager
      */
     public function insert($entity)
     {
-        $this->dataRepository->set($entity->id(), $entity->getFields());
+        $this->repository->set($entity->id(), $entity->getFields());
     }
 
     /**
@@ -65,7 +71,7 @@ class EntityManager
      */
     public function update($entity)
     {
-        $this->dataRepository->set($entity->id(), $entity->getFields());
+        $this->repository->set($entity->id(), $entity->getFields());
     }
 
 }

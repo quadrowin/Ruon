@@ -1,6 +1,6 @@
 <?php
 
-namespace Ruon\Entity\Scheme;
+namespace Ruon\Entity;
 
 /**
  *
@@ -9,7 +9,7 @@ namespace Ruon\Entity\Scheme;
  * @author Goorus, Morph
  *
  */
-class EntitySchemeAbstract
+class EntityScheme
 {
 
     /**
