@@ -5,11 +5,11 @@
  */
 
 require __DIR__ . '/Core.php';
-Ruon\Core::init(
-    __DIR__ . '/Core/BootstrapAbstract.php',
-    'Ruon\\Core\\BootstrapAbstract'
+$bootstrap = Ruon\Core::init(
+    __DIR__ . '/BootstrapAbstract.php',
+    'Ruon\\BootstrapAbstract'
 );
 
 $bootstrap->getApplication()
-    ->setFrontController('Ruon\\Core\\Controller\\Front\\ControllerFrontWeb')
+    ->setFrontController('Ruon\\Controller\\Front\\ControllerFrontWeb')
     ->run();

@@ -33,12 +33,12 @@ class Core
      * @param string $bootfile Путь до файла начальной загрузки
      * @param string $bootclass [optional] Класс начальной загрузки
      * @param boolean $run [optional] Выполнить начальную загрузку
-     * @return \Ruon\Core\BootstrapAbstract
+     * @return \Ruon\BootstrapAbstract
      */
     public static function init($bootfile, $bootclass = null, $run = true)
     {
-        $abstractFile = __DIR__ . '/Core/BootstrapAbstract.php';
-        if (!class_exists('Ruon\\Core\\BootstrapAbstract')) {
+        $abstractFile = __DIR__ . '/BootstrapAbstract.php';
+        if (!class_exists('Ruon\\BootstrapAbstract')) {
             require $abstractFile;
         }
 
