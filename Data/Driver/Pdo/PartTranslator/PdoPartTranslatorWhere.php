@@ -58,7 +58,6 @@ class PdoPartTranslatorWhere extends PdoPartTranslatorAbstract
             return $condition . $value;
         } else {
             $charPos = 0;
-            $i = 0;
 
             if (is_array($value)) {
                 foreach ($value as $key => $val) {

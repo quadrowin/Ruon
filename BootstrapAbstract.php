@@ -25,6 +25,12 @@ class BootstrapAbstract
 
     /**
      *
+     * @var Loader\LoaderAbstract
+     */
+    protected $loader;
+
+    /**
+     *
      * @var ServiceManager
      */
     protected $serviceManager;
@@ -38,16 +44,27 @@ class BootstrapAbstract
     }
 
     /**
+     * @return Loader\LoaderAbstract
+     */
+    public function getLoader()
+    {
+        if (!$this->loader) {
+            require __DIR__ . '/Loader/LoaderAbstract.php';
+            require __DIR__ . '/Loader/LoaderStandart.php';
+
+            $this->loader = new LoaderStandart();
+            $this->loader->setPath(__NAMESPACE__, __DIR__);
+        }
+
+        return $this->loader;
+    }
+
+    /**
      * Запуск загрузки
      */
     public function run()
     {
-        // Загрузчик
-        require __DIR__ . '/Loader/LoaderAbstract.php';
-        require __DIR__ . '/Loader/LoaderStandart.php';
-
-        $loader = new LoaderStandart();
-        $loader->setPath(__NAMESPACE__, __DIR__);
+        $loader = $this->getLoader();
 
         // Автозагрузка классов
         require __DIR__ . '/Loader/LoaderAutoloadAbstract.php';

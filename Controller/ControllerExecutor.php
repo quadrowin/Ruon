@@ -30,13 +30,18 @@ class ControllerExecutor
             $this
         );
 
-        $controller->setTask($task);
+        if (method_exists($controller, 'setTask')) {
+            $controller->setTask($task);
+        }
+
         $method = $task->getMethod();
 
         $reflection = new \ReflectionMethod($controller, $method);
         $params = $reflection->getParameters();
-        foreach ($params as $name => &$value) {
+
+        foreach ($params as &$value) {
             /* @var $value \ReflectionParameter */
+            $name = $value->getName();
             $v = $task->getInput()->get($name);
             $value = ($v === null && $value->isDefaultValueAvailable())
                 ? $value->getDefaultValue()
