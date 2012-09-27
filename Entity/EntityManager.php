@@ -9,69 +9,33 @@ namespace Ruon\Entity;
  * @author Goorus, Morph
  *
  */
-class EntityManager
+class EntityManager implements EntityRepository
 {
 
     /**
-     *
      * @service
-     * @var \Ruon\Entity\EntityScheme
-     */
-    protected $entityScheme;
-
-    /**
-     * @service
-     * @var \Ruon\Data\DataRepositoryAbstract
+     * @var \Ruon\Entity\EntityRepositorySimple
      */
     protected $repository;
 
     /**
      *
-     * @var \Ruon\Data\Source\DataSource
+     * @var \Ruon\Entity\EntityRepositorySource
      */
     protected $source;
 
     /**
-     * Возвращает первичный ключ модели
+     * Сохранение сущности
      *
      * @param Entity $entity
      * @return mixed
      */
-    public function getId($entity)
+    public function saveData($entity, $data, $query)
     {
-        $field = $this->entityScheme->getIdField($entity);
+        $result = $this->source->saveData($entity, $data, $query);
+        $this->repository->saveData($entity, $data, $query);
 
-        if (count($field) > 1) {
-            return $entity->getTheFields($field);
-        }
-
-        if (is_array($field)) {
-            $field = reset($field);
-        }
-
-        return $entity->$field;
-    }
-
-    /**
-     * Создание новой записи для сущности
-     *
-     * @param Entity $entity
-     * @return mixed
-     */
-    public function insert($entity)
-    {
-        $this->repository->set($entity->id(), $entity->getFields());
-    }
-
-    /**
-     * Обновление существующей записи для сущности
-     *
-     * @param Entity $entity
-     * @return mixed
-     */
-    public function update($entity)
-    {
-        $this->repository->set($entity->id(), $entity->getFields());
+        return $result;
     }
 
 }
