@@ -19,6 +19,31 @@ class EntityRepositorySimple extends EntityRepository
     protected $repository;
 
     /**
+     *
+     * @param string $entity
+     * @param mixed $id
+     * @return string
+     */
+    protected function getKey($entity, $id)
+    {
+        return json_encode(array($entity, $id));
+    }
+
+    /**
+     * Возвращает данные модели
+     *
+     * @param string $entity
+     * @param mixed $id
+     * @return array
+     */
+    public function getEntityData($entity, $id)
+    {
+        $key = $this->getKey($entity, $id);
+
+        return $this->repository->get($key);
+    }
+
+    /**
      * @param string $entity
      * @param array $data,
      * @param \Ruon\Query\Query $query
@@ -27,7 +52,7 @@ class EntityRepositorySimple extends EntityRepository
     public function saveData($entity, $data, $query)
     {
         $idField = $this->entityScheme->getIdField($entity);
-        $key = json_encode(array($entity, $data[$idField]));
+        $key = $this->getKey($entity, $data[$idField]);
 
         return $this->repository->setEx($key, $data, $query);
     }

@@ -162,4 +162,15 @@ class Entity
         return $this;
     }
 
+    /**
+     * Устанавливает какие поля являются измененными.
+     *
+     * @return array of string
+     */
+    public function setUpdatedFields($fields)
+    {
+        $this->updatedFields = $fields;
+        return $this;
+    }
+
 }

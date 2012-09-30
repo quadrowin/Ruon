@@ -13,11 +13,42 @@ abstract class EntityRepository
 {
 
     /**
+     * Фабрика сущностей
      *
      * @service
-     * @var \Ruon\Entity\EntityScheme
+     * @var EntityFactory
+     */
+    protected $entityFactory;
+
+    /**
+     *
+     * @service
+     * @var \Ruon\Entity\EntitySchemeAbstract
      */
     protected $entityScheme;
+
+    /**
+     *
+     * @param string $entity
+     * @param integer $id
+     * @return Entity
+     */
+    public function getEntity($entity, $id)
+    {
+        return $this->entityFactory->create(
+            $entity,
+            $this->getEntityData($entity, $id)
+        );
+    }
+
+    /**
+     * Возвращает данные модели
+     *
+     * @param string $entity
+     * @param mixed $id
+     * @return array
+     */
+    abstract public function getEntityData($entity, $id);
 
     /**
      *
@@ -27,27 +58,6 @@ abstract class EntityRepository
     public function getEntityName($entity)
     {
         return get_class($entity);
-    }
-
-    /**
-     * Возвращает первичный ключ модели
-     *
-     * @param Entity $entity
-     * @return mixed
-     */
-    public function getId($entity)
-    {
-        $field = $this->entityScheme->getIdField($entity);
-
-        if (count($field) > 1) {
-            return $entity->getTheFields($field);
-        }
-
-        if (is_array($field)) {
-            $field = reset($field);
-        }
-
-        return $entity->$field;
     }
 
     /**
