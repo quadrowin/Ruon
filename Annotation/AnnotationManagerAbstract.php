@@ -12,14 +12,14 @@ abstract class AnnotationManagerAbstract
 	/**
 	 * Хранилище полученных аннотаций
 	 *
-	 * @var Ruon\Data\DataRepositoryAbstract
+	 * @var \Ruon\Data\DataRepositoryAbstract
 	 */
 	protected $repository;
 
 	/**
 	 * Источник аннотаций
 	 *
-	 * @var Ruon\Annotation\AnnotationSourceAbstract
+	 * @var \Ruon\Annotation\AnnotationSourceAbstract
 	 */
 	protected $source;
 
@@ -28,7 +28,7 @@ abstract class AnnotationManagerAbstract
 	 *
 	 * @param \StdClass $class
 	 * @param string $annotationName
-	 * @return Ruon\Annotation\AnnotationSet
+	 * @return \Ruon\Annotation\AnnotationSet
 	 */
 	public function getAnnotation($class)
 	{
@@ -44,7 +44,7 @@ abstract class AnnotationManagerAbstract
 	/**
 	 * Получить текущее хранилище данных
 	 *
-	 * @return Ruon\Data\DataRepositoryAbstract
+	 * @return \Ruon\Data\DataRepositoryAbstract
 	 */
 	public function getRepository()
 	{
@@ -54,7 +54,7 @@ abstract class AnnotationManagerAbstract
 	/**
 	 * Получить текущий источник аннотаций
 	 *
-	 * @return Ruon\Annotation\AnnotationSourceAbstract
+	 * @return \Ruon\Annotation\AnnotationSourceAbstract
 	 */
 	public function getSource()
 	{
@@ -64,7 +64,7 @@ abstract class AnnotationManagerAbstract
 	/**
 	 * Изменить текущее хранилище данных
 	 *
-	 * @param Ruon\Data\DataRepositoryAbstract $repository
+	 * @param \Ruon\Data\DataRepositoryAbstract $repository
 	 */
 	public function setRepository($repository)
 	{
@@ -74,11 +74,11 @@ abstract class AnnotationManagerAbstract
 	/**
 	 * Изменить текущий источник аннотаций
 	 *
-	 * @param Ruon\Annotation\AnnotationSourceAbstract $source
+	 * @param \Ruon\Annotation\AnnotationSourceAbstract $source
 	 */
 	public function setSource($source)
 	{
 		$this->source = $source;
 	}
-    
+
 }

@@ -16,9 +16,9 @@ class Entity
      * Менеджер сущностей
      *
      * @service
-     * @var EntityManager
+     * @var EntitySchemeAbstract
      */
-    protected $entityManager;
+    protected $entityScheme;
 
     /**
      * Поля модели
@@ -62,11 +62,11 @@ class Entity
     /**
      * Возвращает менеджер сущностей
      *
-     * @return EntityManager
+     * @return EntitySchemeAbstract
      */
-    public function getEntityManager()
+    public function getEntityScheme()
     {
-        return $this->entityManager;
+        return $this->entityScheme;
     }
 
     /**
@@ -109,22 +109,11 @@ class Entity
      */
     public function id()
     {
-        return $this->entityManager->getEntityId($this);
-    }
+        $primary = $this->entityScheme->getEntityPrimary($this);
 
-    /**
-     * Создание новой записи
-     *
-     * @param array $fields
-     * @return mixed
-     */
-    public function insert(array $fields = array())
-    {
-        if ($fields) {
-            $this->mergeFields($fields);
-        }
-
-        return $this->entityManager->insertEntity($this);
+        return is_array($primary)
+            ? $this->getTheFields($primary)
+            : $this->$primary;
     }
 
     /**
@@ -161,43 +150,16 @@ class Entity
     }
 
     /**
-     * Сохраняет сущность
+     * Устанавливает схему сущностей
      *
+     * @param EntitySchemeAbstract $entityScheme
      * @return $this|Entity
      */
-    public function save()
+    public function setEntityScheme($entityScheme)
     {
-        $this->entityManager->saveEntity($this);
+        $this->entityScheme = $entityScheme;
 
         return $this;
-    }
-
-    /**
-     * Устанавливает менеджер сущностей
-     *
-     * @param EntityManager $entityManager
-     * @return $this|Entity
-     */
-    public function setEntityManager($entityManager)
-    {
-        $this->entityManager = $entityManager;
-
-        return $this;
-    }
-
-    /**
-     * Обновляет поля сущности и сохраняет ее
-     *
-     * @param array $fields
-     * @return mixed
-     */
-    public function update(array $fields = array())
-    {
-        if ($fields) {
-            $this->mergeFields($fields);
-        }
-
-        return $this->entityManager->updateEntity($this);
     }
 
 }

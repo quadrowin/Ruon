@@ -27,7 +27,8 @@ class EntityRepositorySimple extends EntityRepository
     public function saveData($entity, $data, $query)
     {
         $idField = $this->entityScheme->getIdField($entity);
-        $key = $entity . '-' . $data[$idField];
+        $key = json_encode(array($entity, $data[$idField]));
+
         return $this->repository->setEx($key, $data, $query);
     }
 
