@@ -28,9 +28,10 @@ class ControllerFrontWeb extends \Ruon\Controller\ControllerAbstract
 
     /**
      *
-     * @var string
+     * @service \Ruon\Render\RenderTaskBuilderStandart
+     * @var \Ruon\Render\RenderTaskBuilderAbstract
      */
-    protected $render = 'Ruon\\Render\\RenderPhp';
+    protected $renderTaskBuilder;
 
     /**
      *
@@ -60,12 +61,7 @@ class ControllerFrontWeb extends \Ruon\Controller\ControllerAbstract
 
         $this->controllerExectuor->execute($controllerTask);
 
-        $renderTask = new \Ruon\Render\RenderTask;
-        $renderTask
-            ->setInput($controllerTask->getOutput())
-            ->setRender($this->render)
-            ->setMethod(\Ruon\Render\RenderTask::METHOD_DISPLAY)
-            ->setTemplate($data->get('template'));
+        $renderTask = $this->renderTaskBuilder->build($controllerTask);
 
         $this->renderExecutor->execute($renderTask);
     }

@@ -57,7 +57,7 @@ class EntitySchemeStandart extends EntitySchemeAbstract
     public function getEntityPrimary($entity)
     {
         return $this->annotations->getAnnotation($entity->getEntityName())
-            ->get(self::ENTITY_KEY);
+            ->get(self::ENTITY_PRIMARY);
     }
 
     /**

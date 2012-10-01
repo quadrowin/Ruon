@@ -47,6 +47,12 @@ abstract class DataDriverAbstract
     abstract public function executeTranslated($query);
 
     /**
+     * @param mixed $result
+     * @return array
+     */
+    abstract public function extractResult($result);
+
+    /**
      * Возвращает транслятор запросов
      *
      * @return QueryTranslatorAbstract

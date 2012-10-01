@@ -46,11 +46,18 @@ class ControllerTask
     protected $output;
 
     /**
-     * Задание рендера
+     * Рендер
      *
-     * @var \Ruon\Render\RenderTask
+     * @var string
      */
-    protected $renderTask;
+    protected $render;
+
+    /**
+     * Метод рендера
+     *
+     * @var string
+     */
+    protected $renderMethod;
 
     /**
      *
@@ -86,6 +93,24 @@ class ControllerTask
     public function getOutput()
     {
         return $this->output;
+    }
+
+    /**
+     *
+     * @return string
+     */
+    public function getRender()
+    {
+        return $this->render;
+    }
+
+    /**
+     *
+     * @return string
+     */
+    public function getRenderMethod()
+    {
+        return $this->renderMethod;
     }
 
     /**
@@ -138,12 +163,24 @@ class ControllerTask
 
     /**
      *
-     * @param \Ruon\Render\RenderTask $renderTask
+     * @param string $render
      * @return $this|ControllerTask
      */
-    public function setRenderTask($renderTask)
+    public function setRender($render)
     {
-        $this->renderTask = $renderTask;
+        $this->render = $render;
+
+        return $this;
+    }
+
+    /**
+     *
+     * @param string $renderMethod
+     * @return $this|ControllerTask
+     */
+    public function setRenderMethod($renderMethod)
+    {
+        $this->renderMethod = $renderMethod;
 
         return $this;
     }
