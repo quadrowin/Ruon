@@ -43,10 +43,11 @@ class ControllerFrontCli extends \Ruon\Controller\ControllerAbstract
     protected $renderExecutor;
 
     /**
-     * @instance
-     * @var \Ruon\Render\RenderTask
+     *
+     * @service \Ruon\Render\RenderTaskBuilderStandart
+     * @var \Ruon\Render\RenderTaskBuilderAbstract
      */
-    protected $renderTask;
+    protected $renderTaskBuilder;
 
     /**
      * Вход вызываемого контроллера
@@ -62,17 +63,17 @@ class ControllerFrontCli extends \Ruon\Controller\ControllerAbstract
 
         $this->subInput->appendProvider($this->argv);
 
-        $this->renderTask
-            ->setRender('Ruon\\Render\\RenderCli')
-            ->setInput($this->controllerOutput);
-
         $this->controllerTask
             ->setController('Ruon\\Controller\\ControllerAbout')
-            ->setInput($this->subInput)
-            ->setRenderTask($this->renderTask);
+            ->setInput($this->subInput);
 
         $this->controllerExecutor->execute($this->controllerTask);
-        $this->renderExecutor->execute($this->renderTask);
+
+        $renderTask = $this->renderTaskBuilder
+               ->setDefaultRender('Ruon\\Render\\RenderCli')
+               ->build($this->controllerTask);
+
+        $this->renderExecutor->execute($renderTask);
     }
 
 }

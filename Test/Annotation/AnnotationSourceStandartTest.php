@@ -2,8 +2,6 @@
 
 namespace Ruon\Annotation;
 
-require_once __DIR__ . '/../../Annotation/AnnotationSourceStandart.php';
-
 /**
  *
  */

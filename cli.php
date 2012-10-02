@@ -4,9 +4,9 @@
  * Запускающий файл консоли
  */
 
-require __DIR__ . '/Core.php';
+require __DIR__ . '/Ruon/Core.php';
 $bootstrap = Ruon\Core::init(
-    __DIR__ . '/BootstrapAbstract.php',
+    __DIR__ . '/Ruon/BootstrapAbstract.php',
     'Ruon\\BootstrapAbstract'
 );
 

@@ -33,4 +33,24 @@ abstract class RenderTaskBuilderAbstract
      */
     abstract public function build($controllerTask);
 
+    /**
+     *
+     * @return string
+     */
+    public function getDefaultRender()
+    {
+        return $this->defaultRender;
+    }
+
+    /**
+     *
+     * @param string $render
+     * @return $this|RenderTaskBuilderAbstract
+     */
+    public function setDefaultRender($render)
+    {
+        $this->defaultRender = $render;
+        return $this;
+    }
+
 }

@@ -60,13 +60,13 @@ class EntityTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Ruon\Entity\Entity::getEntityManager
-     * @covers Ruon\Entity\Entity::setEntityManager
+     * @covers Ruon\Entity\Entity::getEntityScheme
+     * @covers Ruon\Entity\Entity::setEntityScheme
      */
-    public function testGetEntityManager()
+    public function testGetEntityScheme()
     {
         $tester = new \Ruon\Lib\Test\Setter;
-        $tester->test($this, $this->object, 'EntityManager');
+        $tester->test($this, $this->object, 'EntityScheme');
     }
 
     /**

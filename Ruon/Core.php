@@ -42,7 +42,7 @@ class Core
             require $abstractFile;
         }
 
-        if ($abstractFile !== $bootfile) {
+        if (realpath($abstractFile) !== realpath($bootfile)) {
             require $bootfile;
         }
 

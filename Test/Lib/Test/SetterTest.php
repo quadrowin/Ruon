@@ -2,8 +2,6 @@
 
 namespace Ruon\Lib\Test;
 
-require_once __DIR__ . '/../../../Lib/Test/Setter.php';
-
 /**
  * Test class for Setter.
  *

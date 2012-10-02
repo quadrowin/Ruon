@@ -5,12 +5,11 @@ namespace Ruon;
 function test_autoload($className)
 {
     $nsPrefix = __NAMESPACE__ . '\\';
-    
+
     if (strncmp($className, $nsPrefix, strlen($nsPrefix))) {
         return;
     }
-    
-    $className = substr($className, strlen($nsPrefix));
+
     $fileName  = '';
     $lastNsPos = strripos($className, '\\');
     if ($lastNsPos) {
@@ -19,7 +18,7 @@ function test_autoload($className)
         $fileName  = str_replace('\\', '/', $namespace) . '/';
     }
     $fileName .= str_replace('_', '/', $className) . '.php';
-    
+
     require __DIR__ . '/../' . $fileName;
 }
 
