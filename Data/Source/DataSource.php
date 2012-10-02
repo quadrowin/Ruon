@@ -1,6 +1,6 @@
 <?php
 
-namespace Ruon\Data;
+namespace Ruon\Data\Source;
 
 /**
  *

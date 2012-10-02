@@ -44,7 +44,7 @@ class EntityRepositorySource extends EntityRepository
 
         $result = $statement->execute($exec);
 
-        $items = $statement->extract($result);
+        $items = $result->rows();
 
         return $items ? reset($items) : null;
     }

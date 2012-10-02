@@ -47,28 +47,19 @@ class PdoDatabaseDriver extends \Ruon\Data\Driver\DataDriverAbstract
     /**
      *
      * @param PdoTranslatedQuery $query
-     * @return \PDO
+     * @return PdoQueryResult
      */
     public function executeTranslated($query)
     {
         $stm = $this->getHandle()->prepare($query->getSql());
         $stm->execute($query->getValues());
 
-        return $stm;
-    }
+        $result = new PdoQueryResult;
+        $result
+            ->setStatement($stm)
+            ->setResult($result);
 
-    /**
-     *
-     * @param \PDO $result
-     */
-    public function extractResult($result)
-    {
-        $items = array();
-        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-            $items[] = $row;
-        }
-
-        return $items;
+        return $result;
     }
 
     /**

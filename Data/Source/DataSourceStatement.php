@@ -22,22 +22,13 @@ class DataSourceStatement
 	 * Выполняет запрос и возвращает набор данных
 	 *
 	 * @param \Ruon\Query\Query $query
-     * @return mixed
+     * @return \Ruon\Query\QueryResult
 	 */
 	public function execute($query)
 	{
 		$query = $this->prepare($query);
-		return $this->driver->executeQuery($query);
+		return $this->driver->execute($query);
 	}
-
-    /**
-     *
-     * @param mixed $result
-     */
-    public function extract($result)
-    {
-        return $this->driver->extractResult($result);
-    }
 
 	/**
 	 * Получить текущий драйвер
