@@ -1,6 +1,6 @@
 <?php
 
-namespace Ruon\Entity;
+namespace Ruon\Entity\Repository;
 
 /**
  *
@@ -9,7 +9,7 @@ namespace Ruon\Entity;
  * @author Goorus, Morph
  *
  */
-class EntityRepositorySource extends EntityRepository
+class EntityRepositorySource extends EntityRepositoryAbstract
 {
 
     /**
