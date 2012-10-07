@@ -9,7 +9,7 @@ namespace Ruon\Collection;
  * @author Goorus, Morph
  *
  */
-class CollectionArray implements CollectionInterface
+class CollectionArray extends CollectionAbstract
 {
 
     /**
@@ -38,7 +38,7 @@ class CollectionArray implements CollectionInterface
      */
     public function each($callback)
     {
-        foreach ($this->items as $item) {
+        foreach ($this as $item) {
             call_user_func($callback, $item);
         }
     }
@@ -58,7 +58,7 @@ class CollectionArray implements CollectionInterface
      *
      * @return array
      */
-    public function getItems()
+    public function &getItems()
     {
         return $this->items;
     }

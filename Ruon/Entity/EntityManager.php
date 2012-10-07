@@ -9,20 +9,25 @@ namespace Ruon\Entity;
  * @author Goorus, Morph
  *
  */
-class EntityManager implements EntityRepository
+class EntityManager extends Repository\EntityRepositoryArray
 {
-
-    /**
-     * @service
-     * @var \Ruon\Entity\EntityRepositorySimple
-     */
-    protected $repository;
 
     /**
      *
      * @var \Ruon\Entity\EntityRepositorySource
      */
     protected $source;
+
+    /**
+     *
+     * @param string $entity
+     * @param array $data
+     * @return Entity
+     */
+    public function getEntityInstance($entity, $data)
+    {
+
+    }
 
     /**
      * Сохранение сущности
