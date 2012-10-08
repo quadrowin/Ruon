@@ -29,15 +29,13 @@ class EntitySchemeStandart extends EntitySchemeAbstract
         return $this->annotations;
     }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function getFieldProperty($entity, $fieldName, $propertyName)
-	{
-        return $this->annotations->getAnnotation($entity->getEntityName())
-            ->getProperty($fieldName)
-            ->get($propertyName);
-	}
+    /**
+     * @inheritdoc
+     */
+    public function getEntityClass($entity)
+    {
+        return $entity;
+    }
 
     /**
      * @inheritdoc
@@ -59,6 +57,16 @@ class EntitySchemeStandart extends EntitySchemeAbstract
         return $this->annotations->getAnnotation($entity->getEntityName())
             ->get(self::ENTITY_PRIMARY);
     }
+
+	/**
+	 * @inheritdoc
+	 */
+	public function getFieldProperty($entity, $fieldName, $propertyName)
+	{
+        return $this->annotations->getAnnotation($entity->getEntityName())
+            ->getProperty($fieldName)
+            ->get($propertyName);
+	}
 
     /**
      * Изменяет репозиторий схемы моделей

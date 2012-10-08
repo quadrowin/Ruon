@@ -145,27 +145,25 @@ class PdoPartTranslatorWhere extends PdoPartTranslatorAbstract
                 $translated->appendSql(' AND ');
             }
 
-            $condition = $where->getCondition();
+            $left = $where->getLeft();
 
-            if ($where->hasValue()) {
-                $value = $where->getValue();
+            if ($where->getRight() !== null) {
+                $value = $where->getRight();
                 if ($value instanceof Query\Query) {
                     $value = '(' .
                         $this->renderSubquery($value) .
                     ')';
                 }
 
-                $translated->appendSql(
-                    $this->quoteCondition($condition, $value)
-                );
+                $translated->appendSql($this->quoteCondition($left, $value));
             } else {
-                if ($condition instanceof Query) {
+                if ($left instanceof Query) {
                     $translated->appendSql(
-                        '(' . $this->renderSubquery($condition) . ')'
+                        '(' . $this->renderSubquery($left) . ')'
                     );
                 } else {
                     $translated->appendSql(
-                         $this->quoteCondition($condition)
+                         $this->quoteCondition($left)
                     );
                 }
             }

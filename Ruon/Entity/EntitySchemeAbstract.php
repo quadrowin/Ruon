@@ -35,6 +35,14 @@ abstract class EntitySchemeAbstract
     );
 
     /**
+     * Возвращает класс сущности
+     *
+     * @param string $entity
+     * @return string
+     */
+    abstract public function getEntityClass($entity);
+
+    /**
      * Возвращает первичный ключ
      *
      * @param \Ruon\Entity\Entity $entity

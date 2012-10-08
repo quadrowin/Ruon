@@ -22,9 +22,9 @@ class PdoQueryResult extends \Ruon\Query\QueryResult
     /**
      * Результат выполнения запроса
      *
-     * @var \PDOStatement
+     * @var \resource
      */
-    protected $statement;
+    protected $resource;
 
     /**
      * Результат выполнения запроса

@@ -13,32 +13,70 @@ class QueryWhere extends QueryPart
 {
 
     /**
-     * Возвращает условие
-     *
-     * @return string
+     * @var mixed
      */
-    public function getCondition()
+    protected $left;
+
+    /**
+     * @var mixed
+     */
+    protected $operator;
+
+    /**
+     * @var mixed
+     */
+    protected $right;
+
+    /**
+     *
+     * @param mixed $left
+     * @param mixed $operation
+     * @param mixed $right
+     */
+    public function __construct($left, $operator = null, $right = null)
     {
-        return $this->data[0];
+        $this->left = $left;
+        $this->operator = $operator;
+        $This->right = $right;
     }
 
     /**
-     * Значение для условия
+     * Левая часть выражения
+     *
+     * @return string
+     */
+    public function getLeft()
+    {
+        return $this->left;
+    }
+
+    /**
+     * Оператор
      *
      * @return mixed
      */
-    public function getValue()
+    public function getOperator()
     {
-        return $this->data[1];
+        return $this->operator;
+    }
+
+    /**
+     * Правая часть выражения
+     *
+     * @return mixed
+     */
+    public function getRight()
+    {
+        return $this->right;
     }
 
     /**
      *
      * @return boolean
      */
-    public function hasValue()
+    public function __toString()
     {
-        return array_key_exists(1, $this->data);
+        return "{$this->left} {$this->operator} {$this->right}";
     }
 
 }
