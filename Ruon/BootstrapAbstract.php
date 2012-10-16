@@ -101,9 +101,10 @@ class BootstrapAbstract
             ->setServiceLocator($serviceLocator)
             ->setServiceSource($serviceSource);
 
-        $injector
-            ->setInstanceSource($serviceSource)
-            ->setServiceSource($this->serviceManager);
+        $injector->setSources(array(
+            'instance' => $serviceSource,
+            'service' => $this->serviceManager
+        ));
     }
 
 }
