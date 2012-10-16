@@ -19,12 +19,6 @@ class ControllerFrontCli extends \Ruon\Controller\ControllerAbstract
     protected $argv;
 
     /**
-     * @service
-     * @var \Ruon\Controller\ControllerExecutor
-     */
-    protected $controllerExecutor;
-
-    /**
      * @instance
      * @var \Ruon\Data\DataRepositoryArray
      */
@@ -35,12 +29,6 @@ class ControllerFrontCli extends \Ruon\Controller\ControllerAbstract
      * @var \Ruon\Controller\ControllerTask
      */
     protected $controllerTask;
-
-    /**
-     * @service
-     * @var \Ruon\Render\RenderExecutor
-     */
-    protected $renderExecutor;
 
     /**
      *
@@ -65,15 +53,13 @@ class ControllerFrontCli extends \Ruon\Controller\ControllerAbstract
 
         $this->controllerTask
             ->setController('Ruon\\Controller\\ControllerAbout')
-            ->setInput($this->subInput);
+            ->setInput($this->subInput)
+            ->execute();
 
-        $this->controllerExecutor->execute($this->controllerTask);
-
-        $renderTask = $this->renderTaskBuilder
-               ->setDefaultRender('Ruon\\Render\\RenderCli')
-               ->build($this->controllerTask);
-
-        $this->renderExecutor->execute($renderTask);
+        $this->renderTaskBuilder
+            ->setDefaultRender('Ruon\\Render\\RenderCli')
+            ->build($this->controllerTask)
+            ->execute();
     }
 
 }

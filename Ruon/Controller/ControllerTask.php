@@ -26,6 +26,12 @@ class ControllerTask
     protected $controller;
 
     /**
+     * @service
+     * @var \Ruon\DependencyInjection\ServiceManager
+     */
+    protected $controllerManager;
+
+    /**
      * Вход
      *
      * @var \Ruon\Data\DataRepositoryAbstract
@@ -58,6 +64,37 @@ class ControllerTask
      * @var string
      */
     protected $renderMethod;
+
+    /**
+     * Исполнение задания
+     */
+    public function execute()
+    {
+        /* @var $controller ControllerAbstract */
+        $controller = $this->controllerManager->get($this->controller, $this);
+
+        if (method_exists($controller, 'setTask')) {
+            $controller->setTask($this);
+        }
+
+        $reflection = new \ReflectionMethod($controller, $this->method);
+        $params = $reflection->getParameters();
+
+        foreach ($params as &$value) {
+            /* @var $value \ReflectionParameter */
+            $name = $value->getName();
+            $v = $this->input->get($name);
+            $value = ($v === null && $value->isDefaultValueAvailable())
+                ? $value->getDefaultValue()
+                : $v;
+        }
+
+        $result = $reflection->invokeArgs($controller, $params);
+
+        if (is_array($result)) {
+            $this->output->mset($result);
+        }
+    }
 
     /**
      *

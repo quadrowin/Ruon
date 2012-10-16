@@ -13,6 +13,12 @@ class RenderTaskBuilderStandart extends RenderTaskBuilderAbstract
 {
 
     /**
+     * @service \Ruon\DependencyInjection\ServiceSource\ServiceSourceStandart
+     * @var \Ruon\DependencyInjection\ContainerInterface
+     */
+    protected $serviceSource;
+
+    /**
      *
      * @param \Ruon\Controller\ControllerTask $controllerTask
      * @return RenderTask
@@ -25,7 +31,11 @@ class RenderTaskBuilderStandart extends RenderTaskBuilderAbstract
         $renderMethod = $controllerTask->getRenderMethod()
             ?: $this->defaultRenderMethod;
 
-        $renderTask = new RenderTask;
+        /* @var $renderTask RenderTask */
+        $renderTask = $this->serviceSource->get(
+            'Ruon\\Render\\RenderTask',
+            $this
+        );
         $renderTask
             ->setInput($data)
             ->setRender($render)

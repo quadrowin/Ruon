@@ -20,12 +20,6 @@ class Application
     protected $frontController;
 
     /**
-     * @service
-     * @var \Ruon\Controller\ControllerExecutor
-     */
-    protected $controllerExecutor;
-
-    /**
      * @instance
      * @var \Ruon\Controller\ControllerTask
      */
@@ -47,9 +41,8 @@ class Application
     public function run()
     {
         $this->controllerTask
-            ->setController($this->frontController);
-
-        $this->controllerExecutor->execute($this->controllerTask);
+            ->setController($this->frontController)
+            ->execute();
     }
 
     /**

@@ -43,11 +43,29 @@ class RenderTask
     protected $render;
 
     /**
+     * @service
+     * @var \Ruon\DependencyInjection\ServiceManager
+     */
+    protected $renderManager;
+
+    /**
      * Шаблон
      *
      * @var string
      */
     protected $template;
+
+    /**
+     * Исполнение задания
+     */
+    public function execute()
+    {
+        /* @var $render RenderAbstract */
+        $render = $this->renderManager->get($this->render, $this);
+        $render->setVars($this->input->getAll());
+        $method = $this->method;
+        $this->output = $render->$method($this->template);
+    }
 
     /**
      *

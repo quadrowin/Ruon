@@ -15,16 +15,15 @@ class ControllerFrontWeb extends \Ruon\Controller\ControllerAbstract
     /**
      *
      * @service
-     * @var \Ruon\Controller\ControllerExecutor
-     */
-    protected $controllerExectuor;
-
-    /**
-     *
-     * @service
      * @var \Ruon\DependencyInjection\ServiceManager
      */
     protected $controllerManager;
+
+    /**
+     * @service \Ruon\DependencyInjection\ServiceManager
+     * @var \Ruon\DependencyInjection\ContainerInterface
+     */
+    protected $serviceManager;
 
     /**
      *
@@ -32,13 +31,6 @@ class ControllerFrontWeb extends \Ruon\Controller\ControllerAbstract
      * @var \Ruon\Render\RenderTaskBuilderAbstract
      */
     protected $renderTaskBuilder;
-
-    /**
-     *
-     * @service
-     * @var \Ruon\Render\RenderExecutor
-     */
-    protected $renderExecutor;
 
     public function execute()
     {
@@ -53,17 +45,21 @@ class ControllerFrontWeb extends \Ruon\Controller\ControllerAbstract
 
         $controllerClass = $input->get('controller');
 
-        $controllerTask = new \Ruon\Controller\ControllerTask;
+        /* @var $controllerTask Ruon\Controller\ControllerTask */
+        $controllerTask = $this->serviceManager->get(
+            'Ruon\\Controller\\ControllerTask',
+            $this
+        );
+
         $controllerTask
             ->setController($controllerClass)
             ->setInput($input)
-            ->setOutput($data);
+            ->setOutput($data)
+            ->execute();
 
-        $this->controllerExectuor->execute($controllerTask);
-
-        $renderTask = $this->renderTaskBuilder->build($controllerTask);
-
-        $this->renderExecutor->execute($renderTask);
+        $this->renderTaskBuilder
+            ->build($controllerTask)
+            ->execute();
     }
 
 }
