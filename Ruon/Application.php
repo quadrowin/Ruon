@@ -13,17 +13,17 @@ class Application
 {
 
     /**
+     * @instance
+     * @var \Ruon\Controller\ControllerTask
+     */
+    protected $controllerTask;
+
+    /**
      * Фронт контроллер
      *
      * @var string
      */
     protected $frontController;
-
-    /**
-     * @instance
-     * @var \Ruon\Controller\ControllerTask
-     */
-    protected $controllerTask;
 
     /**
      * Возвращает фронт контроллер
