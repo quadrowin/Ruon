@@ -32,6 +32,13 @@ class ControllerFrontWeb extends \Ruon\Controller\ControllerAbstract
      */
     protected $renderTaskBuilder;
 
+    /**
+     *
+     * @service \Ruon\Router\RouterAuto
+     * @var \Ruon\Router\RouterAbstract
+     */
+    protected $router;
+
     public function execute()
     {
         $input = new \Ruon\Data\DataTransport;
@@ -43,7 +50,9 @@ class ControllerFrontWeb extends \Ruon\Controller\ControllerAbstract
 
         $data = new \Ruon\Data\DataRepositoryArray;
 
-        $controllerClass = $input->get('controller');
+        $route = $this->router->route($_SERVER['REQUEST_URI']);
+
+        $controllerClass = $route->getController();
 
         /* @var $controllerTask Ruon\Controller\ControllerTask */
         $controllerTask = $this->serviceManager->get(

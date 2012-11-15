@@ -13,8 +13,22 @@ abstract class RouterAbstract
 {
 
     /**
+     * Правило для пустого маршрута
+     *
+     * @var string
+     */
+    protected $emptyUrl = '/index/';
+
+    /**
+     * Правило для ненайденного маршрута
+     *
+     * @var string
+     */
+    protected $notFoundUrl = '/index/';
+
+    /**
      * @param string $url
-     * @return mixed
+     * @return Route
      */
     abstract public function route($url);
 
