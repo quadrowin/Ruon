@@ -51,13 +51,14 @@ class InjectorStandart extends InjectorAbstract
             $doc = $property->getDocComment();
 
             foreach ($this->sources as $name => $source) {
-                $class = $this->getAnnotationValue($doc, $name);
-                if ($class === '') {
-                    $class = $this->getAnnotationValue($doc, 'var');
+                $subclass = $this->getAnnotationValue($doc, $name);
+
+                if ($subclass === '') {
+                    $subclass = $this->getAnnotationValue($doc, 'var');
                 }
 
-                if ($class) {
-                    $instance = $source->get($class, $object);
+                if ($subclass) {
+                    $instance = $source->get($subclass, $object);
                     $property->setAccessible(true);
                     $property->setValue($object, $instance);
                     break;
