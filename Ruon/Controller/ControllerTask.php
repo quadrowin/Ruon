@@ -27,7 +27,7 @@ class ControllerTask
 
     /**
      * @service
-     * @var \Ruon\DependencyInjection\ServiceManager
+     * @var \Ruon\Di\ServiceLocator\ServiceLocatorStandart
      */
     protected $controllerManager;
 

@@ -44,7 +44,7 @@ class RenderTask
 
     /**
      * @service
-     * @var \Ruon\DependencyInjection\ServiceManager
+     * @var \Ruon\Di\ServiceLocator\ServiceLocatorStandart
      */
     protected $renderManager;
 

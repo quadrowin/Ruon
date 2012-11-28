@@ -1,6 +1,6 @@
 <?php
 
-namespace Ruon\DependencyInjection\ServiceLocator;
+namespace Ruon\Di\ServiceLocator;
 
 /**
  *
@@ -36,7 +36,7 @@ class ServiceLocatorStandart extends ServiceLocatorAbstract
 	/**
 	 * Источник новых сервисов
 	 *
-	 * @var object
+	 * @var \Ruon\Di\ServiceSource\ServiceSourceAbstract
 	 */
 	protected $serviceSource = null;
 
@@ -111,13 +111,14 @@ class ServiceLocatorStandart extends ServiceLocatorAbstract
 	 * Возвращает объект без учета контекста
 	 *
 	 * @param string $class
+     * @param mixed $context Контекст
 	 * @return object
 	 */
-	protected function getPublicInstance($class)
+	protected function getPublicInstance($class, $context = null)
 	{
 		return isset($this->publicInstances[$class])
 			? $this->publicInstances[$class]
-			: null;
+			: $this->serviceSource->get($class, $context);
 	}
 
 	/**
@@ -171,5 +172,16 @@ class ServiceLocatorStandart extends ServiceLocatorAbstract
 
 		return $this;
 	}
+
+    /**
+     *
+     * @param \Ruon\Di\ContainerInterface $source
+     * @return $this|ServiceLocatorStandart
+     */
+    public function setServiceSource($source)
+    {
+        $this->serviceSource = $source;
+        return $this;
+    }
 
 }

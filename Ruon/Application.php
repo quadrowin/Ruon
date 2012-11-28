@@ -13,17 +13,17 @@ class Application
 {
 
     /**
-     * @instance
-     * @var \Ruon\Controller\ControllerTask
-     */
-    protected $controllerTask;
-
-    /**
      * Фронт контроллер
      *
      * @var string
      */
     protected $frontController;
+
+    /**
+     * @service
+     * @var \Ruon\Di\ServiceSource\ServiceSourceStandart
+     */
+    protected $serviceSource;
 
     /**
      * Возвращает фронт контроллер
@@ -40,7 +40,12 @@ class Application
      */
     public function run()
     {
-        $this->controllerTask
+        $task = $this->serviceSource->get(
+            'Ruon\\Controller\\ControllerTask',
+            $this
+        );
+
+        $task
             ->setController($this->frontController)
             ->execute();
     }

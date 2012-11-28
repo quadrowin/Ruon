@@ -13,7 +13,7 @@ abstract class DataDriverAbstract
     /**
      * Переводчик запросов
      *
-     * @inject
+     * @service
      * @var QueryTranslatorAbstract
      */
     protected $translator;
@@ -21,7 +21,7 @@ abstract class DataDriverAbstract
     /**
      * Схема моделей
      *
-     * @inject
+     * @service
      * @var \Ruon\Entity\EntityScheme
      */
     protected $modelScheme;

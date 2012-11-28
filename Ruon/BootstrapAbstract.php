@@ -2,13 +2,11 @@
 
 namespace Ruon;
 
-use Ruon\DependencyInjection\Injector\InjectorStandart;
+use Ruon\Di\Injector\InjectorStandart;
 
-use Ruon\DependencyInjection\ServiceSource\ServiceSourceStandart;
+use Ruon\Di\ServiceSource\ServiceSourceStandart;
 
-use Ruon\DependencyInjection\ServiceLocator\ServiceLocatorStandart;
-
-use Ruon\DependencyInjection\ServiceManager;
+use Ruon\Di\ServiceLocator\ServiceLocatorStandart;
 
 use Ruon\Loader\LoaderStandart;
 
@@ -31,16 +29,16 @@ class BootstrapAbstract
 
     /**
      *
-     * @var ServiceManager
+     * @var DependencyInjection\ServiceLocator\ServiceLocatorStandart
      */
-    protected $serviceManager;
+    protected $serviceLocator;
 
     /**
      * @return Application
      */
     public function getApplication()
     {
-        return $this->serviceManager->get('Ruon\\Application', $this);
+        return $this->serviceLocator->get('Ruon\\Application', $this);
     }
 
     /**
@@ -75,35 +73,26 @@ class BootstrapAbstract
             ->setLoader($loader)
             ->register();
 
-        // Менеджер сервисов
         $serviceLocator = new ServiceLocatorStandart;
         $serviceSource = new ServiceSourceStandart;
         $injector = new InjectorStandart;
-        $this->serviceManager = new ServiceManager;
+        $this->serviceLocator = $serviceLocator;
 
         $serviceLocator
+            ->setServiceSource($serviceSource)
             ->set(get_class($loader), null, $loader)
             ->set(get_class($autoloader), null, $autoloader)
             ->set(get_class($serviceLocator), null, $serviceLocator)
             ->set(get_class($serviceSource), null, $serviceSource)
-            ->set(
-                get_class($this->serviceManager),
-                null,
-                $this->serviceManager
-            )
             ->set(get_class($injector), null, $injector);
 
         $serviceSource
             ->setInjector($injector)
-            ->setServiceManager($this->serviceManager);
-
-        $this->serviceManager
-            ->setServiceLocator($serviceLocator)
-            ->setServiceSource($serviceSource);
+            ->setServiceLocator($serviceLocator);
 
         $injector->setSources(array(
-            'instance' => $serviceSource,
-            'service' => $this->serviceManager
+            'inject' => $this->serviceLocator,
+            'service' => $this->serviceLocator
         ));
     }
 

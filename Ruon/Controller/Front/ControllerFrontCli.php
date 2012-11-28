@@ -19,47 +19,57 @@ class ControllerFrontCli extends \Ruon\Controller\ControllerAbstract
     protected $argv;
 
     /**
-     * @instance
-     * @var \Ruon\Data\DataRepositoryArray
-     */
-    protected $controllerOutput;
-
-    /**
-     * @instance
-     * @var \Ruon\Controller\ControllerTask
-     */
-    protected $controllerTask;
-
-    /**
      *
      * @service \Ruon\Render\RenderTaskBuilderStandart
      * @var \Ruon\Render\RenderTaskBuilderAbstract
      */
     protected $renderTaskBuilder;
 
+
     /**
-     * Вход вызываемого контроллера
-     *
-     * @instance \Ruon\Data\DataTransport
-     * @var \Ruon\Data\DataRepositoryAbstract
+     * @service
+     * @var \Ruon\Di\ServiceSource\ServiceSourceStandart
      */
-    protected $subInput;
+    protected $serviceSource;
 
     public function execute()
     {
-        $this->controllerTask->setOutput($this->controllerOutput);
+        $controllerTask = $this->newControllerTask();
+        $controllerTask->setOutput(new \Ruon\Data\DataRepositoryArray);
 
-        $this->subInput->appendProvider($this->argv);
+        $subInput = $this->newSubInput();
+        $subInput->appendProvider($this->argv);
 
         $this->controllerTask
             ->setController('Ruon\\Controller\\ControllerAbout')
-            ->setInput($this->subInput)
+            ->setInput($subInput)
             ->execute();
 
         $this->renderTaskBuilder
             ->setDefaultRender('Ruon\\Render\\RenderCli')
             ->build($this->controllerTask)
             ->execute();
+    }
+
+    /**
+     * Создание задачи контроллера
+     * @return \Ruon\Controller\ControllerTask
+     */
+    protected function newControllerTask()
+    {
+        return $this->serviceSource->get(
+            'Ruon\\Controller\\ControllerTask',
+            $this
+        );
+    }
+
+    /**
+     * Вход вызываемого контроллера
+     * @return \Ruon\Data\DataRepositoryAbstract
+     */
+    protected function newSubInput()
+    {
+        return $this->serviceSource->get('Ruon\\Data\\DataTransport', $this);
     }
 
 }

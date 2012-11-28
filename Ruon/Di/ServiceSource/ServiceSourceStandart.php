@@ -1,6 +1,6 @@
 <?php
 
-namespace Ruon\DependencyInjection\ServiceSource;
+namespace Ruon\Di\ServiceSource;
 
 /**
  *
@@ -146,9 +146,9 @@ class ServiceSourceStandart extends ServiceSourceAbstract
 				$paramClass = $paramClass->getName();
 			}
 
-			if ($paramClass && $this->serviceManager) {
+			if ($paramClass && $this->serviceLocator) {
 				// Класс получаем через менеджер сервисов
-				$param = $this->serviceManager->get($paramClass, $class);
+				$param = $this->serviceLocator->get($paramClass, $class);
 			} elseif ($param->isDefaultValueAvailable()) {
 				$param = $param->getDefaultValue();
 			} else {

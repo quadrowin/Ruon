@@ -49,14 +49,15 @@ class RouterAuto extends RouterAbstract
 
         $paths = $this->loader->getPaths();
         $winner = null;
-        foreach ($paths as $ns => $path) {
+        for ($path = end($paths); $path; $path = prev($paths)) {
+            $ns = key($paths);
+
             $path = rtrim($path, '\\/') . '/Controller';
             if (!is_dir($path)) {
                 continue;
             }
             foreach ($possibles as $suburl => $controller) {
                 $class = $ns . '\\Controller' . $controller;
-                var_dump($class);
                 if (class_exists($class)) {
                     $winner = array($suburl, $class);
                 }

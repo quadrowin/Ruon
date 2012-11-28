@@ -13,8 +13,8 @@ class RenderTaskBuilderStandart extends RenderTaskBuilderAbstract
 {
 
     /**
-     * @service \Ruon\DependencyInjection\ServiceSource\ServiceSourceStandart
-     * @var \Ruon\DependencyInjection\ContainerInterface
+     * @service \Ruon\Di\ServiceSource\ServiceSourceStandart
+     * @var \Ruon\Di\ContainerInterface
      */
     protected $serviceSource;
 

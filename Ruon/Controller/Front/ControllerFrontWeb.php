@@ -15,15 +15,15 @@ class ControllerFrontWeb extends \Ruon\Controller\ControllerAbstract
     /**
      *
      * @service
-     * @var \Ruon\DependencyInjection\ServiceManager
+     * @var \Ruon\Di\ServiceLocator\ServiceLocatorStandart
      */
     protected $controllerManager;
 
     /**
-     * @service \Ruon\DependencyInjection\ServiceManager
-     * @var \Ruon\DependencyInjection\ContainerInterface
+     * @service \Ruon\Di\ServiceSource\ServiceSourceStandart
+     * @var \Ruon\Di\ContainerInterface
      */
-    protected $serviceManager;
+    protected $serviceSource;
 
     /**
      *
@@ -54,11 +54,7 @@ class ControllerFrontWeb extends \Ruon\Controller\ControllerAbstract
 
         $controllerClass = $route->getController();
 
-        /* @var $controllerTask Ruon\Controller\ControllerTask */
-        $controllerTask = $this->serviceManager->get(
-            'Ruon\\Controller\\ControllerTask',
-            $this
-        );
+        $controllerTask = $this->newControllerTask();
 
         $controllerTask
             ->setController($controllerClass)
@@ -69,6 +65,17 @@ class ControllerFrontWeb extends \Ruon\Controller\ControllerAbstract
         $this->renderTaskBuilder
             ->build($controllerTask)
             ->execute();
+    }
+
+    /**
+     * @return \Ruon\Controller\ControllerTask
+     */
+    protected function newControllerTask()
+    {
+        return  $this->serviceSource->get(
+            'Ruon\\Controller\\ControllerTask',
+            $this
+        );
     }
 
 }

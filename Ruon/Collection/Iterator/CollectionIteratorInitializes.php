@@ -65,4 +65,15 @@ class CollectionIteratorInitializes extends CollectionIteratorAbstract
         return $this->current;
     }
 
+    /**
+     *
+     * @param \Ruon\Entity\EntityManager $manager
+     * @return $this|CollectionIteratorInitializes
+     */
+    public function setEntityManager($manager)
+    {
+        $this->entityManager = $manager;
+        return $this;
+    }
+
 }

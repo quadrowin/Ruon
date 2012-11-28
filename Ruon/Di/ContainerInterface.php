@@ -1,6 +1,6 @@
 <?php
 
-namespace Ruon\DependencyInjection;
+namespace Ruon\Di;
 
 /**
  *

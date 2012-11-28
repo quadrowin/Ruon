@@ -1,6 +1,6 @@
 <?php
 
-namespace Ruon\DependencyInjection\ServiceSource;
+namespace Ruon\Di\ServiceSource;
 
 /**
  *
@@ -24,12 +24,12 @@ abstract class ServiceSourceAbstract
 	 *
 	 * @var ContainerInterface
 	 */
-	protected $serviceManager;
+	protected $serviceLocator;
 
 	/**
 	 * Инициализирует используемые в объекте зависимости
 	 *
-	 * @var \Ruon\DependencyInjection\Injector\InjectorAbstract
+	 * @var \Ruon\Di\Injector\InjectorAbstract
 	 */
 	protected $injector;
 
@@ -45,7 +45,7 @@ abstract class ServiceSourceAbstract
 	/**
 	 * Возвращает текущий инжектор
 	 *
-	 * @return \Ruon\DependencyInjection\Injector\InjectorAbstract
+	 * @return \Ruon\Di\Injector\InjectorAbstract
 	 */
 	public function getInjector()
 	{
@@ -71,13 +71,13 @@ abstract class ServiceSourceAbstract
 	}
 
 	/**
-	 * Возвращает текущий менеджер сервисов
+	 * Возвращает текущий сервис локатор
 	 *
-	 * @return ServiceManager
+	 * @return ServiceLocator
 	 */
-	public function getServiceManager()
+	public function getServiceLocator()
 	{
-		return $this->serviceManager;
+		return $this->serviceLocator;
 	}
 
 	/**
@@ -95,7 +95,7 @@ abstract class ServiceSourceAbstract
 	/**
 	 * Устанавливает инжектор зависимостей
 	 *
-	 * @param \Ruon\DependencyInjection\Injector\InjectorAbstract $injector
+	 * @param \Ruon\Di\Injector\InjectorAbstract $injector
 	 * @return $this|ServiceSourceAbstract
 	 */
 	public function setInjector($injector)
@@ -105,14 +105,14 @@ abstract class ServiceSourceAbstract
 	}
 
 	/**
-	 * Устанавливает менеджер сервисов
+	 * Устанавливает сервис локатор
 	 *
-	 * @param ContainerInterface $manager
+	 * @param ContainerInterface $locator
 	 * @return $this|ServiceSourceAbstract
 	 */
-	public function setServiceManager($manager)
+	public function setServiceLocator($locator)
 	{
-		$this->serviceManager = $manager;
+		$this->serviceLocator = $locator;
 		return $this;
 	}
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Ruon\DependencyInjection\Injector;
+namespace Ruon\Di\Injector;
 
 /**
  *
@@ -15,7 +15,7 @@ abstract class InjectorAbstract
     /**
      * Источники
      *
-     * @var array of \Ruon\DependencyInjection\ContainerInterface
+     * @var array of \Ruon\Di\ContainerInterface
      */
     protected $sources = array(
         'instance' => null,
@@ -26,7 +26,7 @@ abstract class InjectorAbstract
      * Возвращает источник
      *
      * @param string $name
-     * @return \Ruon\DependencyInjection\ContainerInterface
+     * @return \Ruon\Di\ContainerInterface
      */
     public function getSource($name)
     {
@@ -36,7 +36,7 @@ abstract class InjectorAbstract
     /**
      * Возвращает список источников
      *
-     * @return array of \Ruon\DependencyInjection\ContainerInterface
+     * @return array of \Ruon\Di\ContainerInterface
      */
     public function getSources()
     {
@@ -54,7 +54,7 @@ abstract class InjectorAbstract
      * Устанавливает источник
      *
      * @param string $name
-     * @param \Ruon\DependencyInjection\ContainerInterface $source
+     * @param \Ruon\Di\ContainerInterface $source
      * @return $this|InjectorAbstract
      */
     public function setSource($name, $source)
@@ -66,7 +66,7 @@ abstract class InjectorAbstract
     /**
      * Устанавливает источники
      *
-     * @param array of \Ruon\DependencyInjection\ContainerInterface $sources
+     * @param array of \Ruon\Di\ContainerInterface $sources
      * @return $this|InjectorAbstract
      */
     public function setSources($sources)

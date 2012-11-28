@@ -13,10 +13,10 @@ class PdoQueryTranslator extends \Ruon\Data\Driver\QueryTranslatorAbstract
 {
 
     /**
-     * @inject
-     * @var \Ruon\DependencyInjection\ServiceManager
+     * @service
+     * @var \Ruon\Di\ServiceLocator\ServiceLocatorStandart
      */
-    protected $serviceManager;
+    protected $serviceLocator;
 
     /**
      * Возвращает рендер
@@ -28,7 +28,7 @@ class PdoQueryTranslator extends \Ruon\Data\Driver\QueryTranslatorAbstract
     {
         $class = __NAMESPACE__ . '\\PartTranslator\\PdoPartTranslator' . $name;
 
-        return $this->serviceManager->get($class, $this);
+        return $this->serviceLocator->get($class, $this);
     }
 
     /**
