@@ -21,7 +21,7 @@ class RenderPhp extends RenderAbstract
         ob_clean();
         extract($this->vars);
         require $template;
-        
+
         return ob_get_clean();
     }
 
