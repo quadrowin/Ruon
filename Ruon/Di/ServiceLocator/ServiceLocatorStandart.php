@@ -118,7 +118,7 @@ class ServiceLocatorStandart extends ServiceLocatorAbstract
 	{
 		return isset($this->publicInstances[$class])
 			? $this->publicInstances[$class]
-			: $this->serviceSource->get($class, $context);
+			: $this->serviceSource->get($class, null);
 	}
 
 	/**
