@@ -31,7 +31,7 @@ class Query
      * Аналогично "new Query()".
      * @return Query Новый запрос.
      */
-    public static function instance()
+    public static function create()
     {
         return new self();
     }
@@ -41,7 +41,7 @@ class Query
      *
      * @param QueryPart $part
      * @param QueryPart $_
-     * @return $this
+     * @return $this|Query
      */
     public function add($part)
     {
