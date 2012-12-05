@@ -47,14 +47,25 @@ class BootstrapAbstract
     public function getLoader()
     {
         if (!$this->loader) {
-            require __DIR__ . '/Loader/LoaderAbstract.php';
-            require __DIR__ . '/Loader/LoaderStandart.php';
-
-            $this->loader = new LoaderStandart();
-            $this->loader->setPath(__NAMESPACE__, __DIR__);
+            $this->loader = $this->createLoader();
         }
 
         return $this->loader;
+    }
+
+    /**
+     * Создание загрузчика
+     *
+     * @return Loader\LoaderStandart
+     */
+    public function createLoader()
+    {
+        require __DIR__ . '/Loader/LoaderAbstract.php';
+        require __DIR__ . '/Loader/LoaderStandart.php';
+
+        $loader = new LoaderStandart();
+        $loader->setPath(__NAMESPACE__, __DIR__);
+        return $loader;
     }
 
     /**
